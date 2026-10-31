@@ -16,3 +16,14 @@ jobs:
         working-directory: v2-enterprise
       - run: python -m pytest -q
         working-directory: v2-enterprise
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform fmt -check
+        working-directory: v2-enterprise
+      - run: terraform init -backend=false
+        working-directory: v2-enterprise
+      - run: terraform validate
+        working-directory: v2-enterprise
