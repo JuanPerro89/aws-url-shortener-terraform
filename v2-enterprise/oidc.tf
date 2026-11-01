@@ -17,8 +17,8 @@ resource "aws_iam_role" "github_plan" {
         }
         StringLike = {
           "token.actions.githubusercontent.com:sub" = [
-            "repo:JuanPerro89/aws-url-shortener-terraform:pull_request",
-            "repo:JuanPerro89/aws-url-shortener-terraform:ref:refs/heads/master",
+            "repo:JuanPerro89@178190531/aws-url-shortener-terraform@1431366047:pull_request",
+            "repo:JuanPerro89@178190531/aws-url-shortener-terraform@1431366047:ref:refs/heads/master",
           ]
         }
       }
