@@ -37,10 +37,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: hashicorp/setup-terraform@v3
-      - name: Mostrar claims del token (temporal)
-        run: |
-          TOKEN=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" | python3 -c "import sys,json; print(json.load(sys.stdin)['value'])")
-          python3 -c "import sys,json,base64; p=sys.argv[1].split('.')[1]; p+='='*(-len(p)%4); d=json.loads(base64.urlsafe_b64decode(p)); print({k:d[k] for k in ('sub','aud')})" "$TOKEN"
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: arn:aws:iam::468354413450:role/github-actions-terraform-plan
