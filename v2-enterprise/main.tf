@@ -76,3 +76,12 @@ resource "aws_lambda_permission" "url_invoke_function" {
   principal                = "*"
   invoked_via_function_url = true
 }
+
+terraform {
+  backend "s3" {
+    bucket       = "tfstate-url-shortener-1989322048"
+    key          = "url-shortener/v2/terraform.tfstate"
+    region       = "eu-west-3"
+    use_lockfile = true
+  }
+}
