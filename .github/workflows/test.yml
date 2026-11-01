@@ -27,3 +27,21 @@ jobs:
         working-directory: v2-enterprise
       - run: terraform validate
         working-directory: v2-enterprise
+  plan:
+    needs: [ test, terraform ]
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::468354413450:role/github-actions-terraform-plan
+          aws-region: eu-west-3
+      - run: terraform init -input=false
+        working-directory: v2-enterprise
+      - run: terraform plan -lock=false -input=false
+        working-directory: v2-enterprise
